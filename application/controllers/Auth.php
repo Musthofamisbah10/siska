@@ -111,7 +111,7 @@ class Auth extends CI_Controller
 			];
       $this->data['action'] = 'auth/login';
 
-			$this->_render_page('vlogin', $this->data);
+			$this->_render_page('vLogin', $this->data);
 		}
 	}
 
