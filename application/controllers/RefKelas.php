@@ -28,7 +28,7 @@ class RefKelas extends CI_Controller {
     $data['content']['dtTable'] = $this->mod_RefKelas->getAllData('1=1')->result();
     $data['page'] = 'vRefKelas';
     $data['content']['action'] = 'refKelas/save';
-    $this->load->view('vmain', $data);
+    $this->load->view('vMain', $data);
   }
   
   public function save() {

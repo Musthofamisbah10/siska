@@ -16,6 +16,6 @@ class Main extends CI_Controller {
 	{
     $data['page'] = 'vDashboard';
     $data['content'] = '';
-		$this->load->view('vmain', $data);
+		$this->load->view('vMain', $data);
 	}
 }

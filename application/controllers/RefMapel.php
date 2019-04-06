@@ -30,7 +30,7 @@ class RefMapel extends CI_Controller {
     $data['content']['refmapel'] = $this->mod_RefMapel->getData('1=1')->result();
     $data['page'] = 'vRefMapel';
     $data['content']['action'] = 'RefMapel/save';
-    $this->load->view('vmain', $data);
+    $this->load->view('vMain', $data);
   }
   
   public function save() {

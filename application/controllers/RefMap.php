@@ -35,7 +35,7 @@ class RefMap extends CI_Controller {
     $data['content']['refmapel'] = $this->mod_RefMapel->getData('1=1')->result();
     $data['page'] = 'vRefMap';
     $data['content']['action'] = 'RefMap/save';
-    $this->load->view('vmain', $data);
+    $this->load->view('vMain', $data);
   }
   
   public function save() {

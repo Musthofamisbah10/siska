@@ -28,7 +28,7 @@ class RefUser extends CI_Controller {
     $data['content']['refuser'] = $this->ion_auth_model->users();
     $data['page'] = 'vRefUser';
     $data['content']['action'] = 'RefUser/save';
-    $this->load->view('vmain', $data);
+    $this->load->view('vMain', $data);
   }
   
   public function save() {

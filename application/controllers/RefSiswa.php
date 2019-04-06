@@ -30,7 +30,7 @@ class RefSiswa extends CI_Controller {
     $data['content']['refsiswa'] = $this->mod_RefSiswa->getData('1=1')->result();
     $data['page'] = 'vRefSiswa';
     $data['content']['action'] = 'RefSiswa/save';
-    $this->load->view('vmain', $data);
+    $this->load->view('vMain', $data);
   }
   
   public function save() {

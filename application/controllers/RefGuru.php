@@ -30,7 +30,7 @@ class RefGuru extends CI_Controller {
     $data['content']['refguru'] = $this->mod_RefGuru->getData('1=1')->result();
     $data['page'] = 'vRefGuru';
     $data['content']['action'] = 'RefGuru/save';
-    $this->load->view('vmain', $data);
+    $this->load->view('vMain', $data);
   }
   
   public function save() {
