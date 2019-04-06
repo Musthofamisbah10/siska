@@ -169,7 +169,7 @@
     </nav>
   </header>
 
-  <?php $this->load->view('vmenuguru');?>
+  <?php $this->load->view('vMenuGuru');?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <?php $this->load->view($page, $content);?>
