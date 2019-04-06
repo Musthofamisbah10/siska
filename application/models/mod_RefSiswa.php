@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class mod_RefSiswa extends CI_Model {
+class Mod_RefSiswa extends CI_Model {
 
   function __construct() {
     parent::__construct();

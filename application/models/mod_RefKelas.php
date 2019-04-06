@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class mod_RefKelas extends CI_Model {
+class Mod_RefKelas extends CI_Model {
 
   function __construct() {
     parent::__construct();

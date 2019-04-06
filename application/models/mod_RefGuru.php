@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class mod_RefGuru extends CI_Model {
+class Mod_RefGuru extends CI_Model {
 
   function __construct() {
     parent::__construct();

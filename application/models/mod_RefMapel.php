@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class mod_RefMapel extends CI_Model {
+class Mod_RefMapel extends CI_Model {
 
   function __construct() {
     parent::__construct();
