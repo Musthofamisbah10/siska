@@ -62,7 +62,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="<?=base_url('RefKelas');?>"><i class="fa fa-chevron-circle-right"></i> Data Kelas</a></li>
-          <li><a href="<?=base_url('RefMaPel');?>"><i class="fa fa-chevron-circle-right"></i> Data MaPel</a></li>
+          <li><a href="<?=base_url('RefMapel');?>"><i class="fa fa-chevron-circle-right"></i> Data MaPel</a></li>
           <li><a href="<?=base_url('RefGuru');?>"><i class="fa fa-chevron-circle-right"></i> Data Guru</a></li>
           <li><a href="<?=base_url('RefSiswa');?>"><i class="fa fa-chevron-circle-right"></i> Data Siswa</a></li>
           <li><a href="<?=base_url('RefMap');?>"><i class="fa fa-chevron-circle-right"></i> Guru-Kelas-MaPel</a></li>
