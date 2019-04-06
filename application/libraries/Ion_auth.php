@@ -38,14 +38,14 @@ class Ion_auth
 	 *
 	 * @var array
 	 **/
-	public $_extra_where = [];
+	public $_extra_where = array();
 
 	/**
 	 * extra set
 	 *
 	 * @var array
 	 **/
-	public $_extra_set = [];
+	public $_extra_set = array();
 
 	/**
 	 * caching of users and their groups
