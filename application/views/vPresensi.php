@@ -10,13 +10,12 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Data Referensi Guru
+    Presensi Siswa
     <small></small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li> Setting</li>
-    <li class="active">Ref. Guru</li>
+    <li class="active">Presensi</li>
   </ol>
 </section>
 
@@ -26,7 +25,7 @@
   <!-- Default box -->
   <div class="box">
     <div class="box-header with-border">
-      <h3 class="box-title">Form Guru</h3>
+      <h3 class="box-title">Form Presensi Siswa</h3>
     </div>
     <?=form_open($action,'class="form-horizontal"'); ?>
     <div class="box-body">
@@ -84,30 +83,34 @@
   <!-- /.box -->
   <div class="box">
     <div class="box-header with-border">
-      <h3 class="box-title">Data Guru</h3>
+      <h3 class="box-title">Data Presensi</h3>
     </div>
     <div class="box-body">
       <table id="dtable" class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>NIP</th>
-            <th>Nama Guru</th>
-            <th>Wali Kelas</th>
+            <th>NIS</th>
+            <th>Nama Siswa</th>
+            <th>Kelas</th>
+            <th>Tanggal</th>
             <th>Status</th>
+            <th>Keterangan</th>
             <th>Opsi</th>
           </tr>
         </thead>
         <tbody>
           <?php
-          foreach ($refguru as $row) { ?>
+          foreach ($tpresensi as $row) { ?>
           <tr>
-            <td><?=$row->nip;?></td>
-            <td><?=$row->nmguru;?></td>
+            <td><?=$row->nis;?></td>
+            <td><?=$row->nmsiswa;?></td>
             <td><?=$row->kelas;?></td>
+            <td><?=$row->tgl;?></td>
             <td><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
+            <td><?=$row->ket;?></td>
             <td>
-              <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->nip;?>);"><i class="fa fa-edit"></i> Edit</button>
-              <a href="<?=base_url().'RefGuru/delete/'.$row->nip;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
+              <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->nis;?>);"><i class="fa fa-edit"></i> Edit</button>
+              <a href="<?=base_url().'RefGuru/delete/'.$row->nis;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
             </td>
           </tr>
           <?php } ?>

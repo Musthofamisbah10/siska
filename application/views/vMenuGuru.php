@@ -25,7 +25,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
       <li><a href="<?=base_url();?>"><i class="fa fa-dashboard text-orange"></i> <span>Dashboard</span></a></li>      
-      <li><a href="#"><i class="fa fa-calendar-o text-orange"></i> <span>Presensi Siswa</span></a></li>
+      <li><a href="<?=base_url('Presensi');?>"><i class="fa fa-calendar-o text-orange"></i> <span>Presensi Siswa</span></a></li>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-star text-orange"></i> <span>Nilai Siswa</span>
