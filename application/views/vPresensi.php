@@ -7,6 +7,8 @@
  */
 
 ?>
+<script src="<?=base_url('assets/vendors/select2/dist/js/select2.full.min.js');?>" type="text/javascript"></script>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
@@ -29,44 +31,47 @@
     </div>
     <?=form_open($action,'class="form-horizontal"'); ?>
     <div class="box-body">
-      <div class="col-sm-5">
+      <div class="col-sm-4">
         <div class="form-group">
-          <label for="nip" class="col-sm-2 control-label">NIP</label>
-          <div class="col-sm-9">
-            <input type="text" name="nip" id="nip" class="form-control input-sm" placeholder="NIP">
+          <label for="tgl" class="col-sm-4 control-label">Tanggal</label>
+          <div class="col-sm-8">
+            <input type="date" name="tgl" id="tgl" class="form-control input-sm" value="<?=date('Y-m-d');?>">
           </div>
         </div>
         <div class="form-group">
-          <label for="kelasid" class="col-sm-2 control-label">Wali</label>
-          <div class="col-sm-9">
-            <?php
-            $option = NULL;
-            $option[''] = 'Pilih Kelas';
-            foreach($refkelas as $row) {
-              $option[$row->id] = $row->kelas;
-            }
-            echo form_dropdown('kelasid',$option,'',['id'=>'kelasid','class'=>'form-control input-sm']); ?>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-7">
-        <div class="form-group">
-          <label for="nmguru" class="col-sm-2 control-label">Nama</label>
-          <div class="col-sm-10">
-            <input type="text" name="nmguru" id="nmguru" class="form-control input-sm" placeholder="Nama Guru">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="status" class="col-sm-2 control-label">Status</label>
-          <div class="col-sm-4">
-            <select name="status" class="form-control input-sm">
-              <option value="0">Tidak Aktif</option>
-              <option value="1" selected>Aktif</option>
+          <label for="status" class="col-sm-4 control-label">Status</label>
+          <div class="col-sm-8">
+            <select name="status" class="form-control input-sm" required>
+              <option value="">status</option>
+              <option value="1" selected>Alpa</option>
+              <option value="2" selected>Ijin</option>
+              <option value="3" selected>Sakit</option>
             </select>
           </div>
         </div>
       </div>
+      <div class="col-sm-8">
+        <div class="form-group">
+          <label for="nis" class="col-sm-2 control-label">Siswa</label>
+          <div class="col-sm-9">
+            <?php
+            $option = NULL;
+            $option[''] = 'Siswa';
+            foreach($refsiswa as $row) {
+              $option[$row->nis] = $row->nmsiswa;
+            }
+            echo form_dropdown('nis',$option,'',['id'=>'nis','class'=>'form-control input-sm carpil','required'=>'required']); ?>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ket" class="col-sm-2 control-label">Ket.</label>
+          <div class="col-sm-10">
+            <input type="text" name="ket" id="ket" class="form-control input-sm" placeholder="Keterangan">
+          </div>
+        </div>
+      </div>
     </div>
+    <input type="hidden" name="id" id="id" value="false">
     <input type="hidden" name="edit" id="edit" value="false">
     <!-- /.box-body -->
     <div class="box-footer">
@@ -106,11 +111,11 @@
             <td><?=$row->nmsiswa;?></td>
             <td><?=$row->kelas;?></td>
             <td><?=$row->tgl;?></td>
-            <td><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
+            <td><?=[1=>'Alpa','Ijin','Sakit'][$row->status];?></td>
             <td><?=$row->ket;?></td>
             <td>
               <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->nis;?>);"><i class="fa fa-edit"></i> Edit</button>
-              <a href="<?=base_url().'RefGuru/delete/'.$row->nis;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
+              <a href="<?=base_url().'presensi/delete/'.$row->id;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
             </td>
           </tr>
           <?php } ?>
@@ -122,6 +127,9 @@
 <!-- /.content -->
 
 <script>
+  
+  $('.carpil').select2();  
+  
   function editdata(nip) {
     $.ajax({
       url : "<?php echo base_url('RefGuru/xedit/')?>" + nip,

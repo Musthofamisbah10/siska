@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Apr 2019 pada 19.54
+-- Waktu pembuatan: 09 Apr 2019 pada 20.21
 -- Versi server: 10.1.31-MariaDB
 -- Versi PHP: 5.6.35
 
@@ -88,7 +88,7 @@ CREATE TABLE `auth_users` (
 --
 
 INSERT INTO `auth_users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1554569377, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1554827640, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -211,6 +211,27 @@ CREATE TABLE `ref_siswa` (
 INSERT INTO `ref_siswa` (`nis`, `nmsiswa`, `tgllahir`, `kelasid`, `status`) VALUES
 ('1234', 'pijo', '2019-04-24', 1, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_presensi`
+--
+
+CREATE TABLE `t_presensi` (
+  `id` int(11) NOT NULL,
+  `tgl` date NOT NULL,
+  `nis` smallint(6) NOT NULL,
+  `status` int(11) NOT NULL,
+  `ket` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `t_presensi`
+--
+
+INSERT INTO `t_presensi` (`id`, `tgl`, `nis`, `status`, `ket`) VALUES
+(1, '2019-04-09', 1234, 1, '-');
+
 --
 -- Indexes for dumped tables
 --
@@ -280,6 +301,13 @@ ALTER TABLE `ref_siswa`
   ADD KEY `siswa_refkelas` (`kelasid`);
 
 --
+-- Indeks untuk tabel `t_presensi`
+--
+ALTER TABLE `t_presensi`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tgl` (`tgl`,`nis`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -324,6 +352,12 @@ ALTER TABLE `ref_map`
 --
 ALTER TABLE `ref_mapel`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_presensi`
+--
+ALTER TABLE `t_presensi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

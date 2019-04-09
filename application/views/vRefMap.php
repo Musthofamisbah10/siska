@@ -41,7 +41,7 @@
             foreach($refguru as $row) {
               $option[$row->nip] = $row->nmguru;
             }
-            echo form_dropdown('nip',$option,'',['id'=>'nip','class'=>'form-control input-sm','required'=>'required']); ?>
+            echo form_dropdown('nip',$option,'',['id'=>'nip','class'=>'form-control input-sm carpil','required'=>'required']); ?>
           </div>
         </div>
         <div class="form-group">
@@ -135,7 +135,7 @@
 <!-- /.content -->
 
 <script>
-  $("#nip").select2();
+  $('.carpil').select2();  
   
   function editdata(id) {
     console.log(id);

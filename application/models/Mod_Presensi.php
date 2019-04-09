@@ -15,14 +15,13 @@ class Mod_Presensi extends CI_Model {
   
   public function getData($where) {
     $this->db->select('t_presensi.*, ref_kelas.kelas, ref_siswa.nmsiswa');
-    $this->db->join('ref_kelas', 't_presensi.kelasid=ref_kelas.id');
-    $this->db->join('ref_siswa', 't_presensi.nis=ref_siswa.nis');
-    return $this->db->get_where('t_presensi', $where);
+    $this->db->join('ref_kelas', 'ref_siswa.kelasid=ref_kelas.id');
+    $this->db->join('t_presensi', 't_presensi.nis=ref_siswa.nis');
+    return $this->db->get_where('ref_siswa', $where);
   }
   
   public function saveData($edit) {
-    ($this->input->post('kelasid')==='') ? $kelas=NULL:$kelas=$this->input->post('kelasid');
-    $arr = ['nip'=>$this->input->post('nip'),'nmguru'=>$this->input->post('nmguru'),'kelasid'=>$kelas, 'status'=>$this->input->post('status')];
+    $arr = ['nis'=>$this->input->post('nis'),'tgl'=>$this->input->post('tgl'),'ket'=>$this->input->post('ket'), 'status'=>$this->input->post('status')];
     if ($edit === 'true') {
       $this->db->update('t_presensi',$arr);
     } else {

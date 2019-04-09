@@ -51,7 +51,8 @@ class RefGuru extends CI_Controller {
   }
   
   public function delete($nip) {
-    if ($this->db->delete('ref_guru', ['nip'=>$nip])) {
+    $this->db->delete('ref_guru', ['nip'=>$nip]);
+    if ($this->db->affected_rows() > 0) {
       $this->session->set_flashdata('success', $this->lang->line('del_success'));
     } else {
       $this->session->set_flashdata('error', $this->lang->line('del_err'));

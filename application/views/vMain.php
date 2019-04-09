@@ -187,6 +187,7 @@
 </div>
 <!-- ./wrapper -->
 
+</script>
 <!-- Tostr -->
 <script src="<?=base_url('assets/vendors/toastr/build/toastr.min.js');?>"></script>
 <!-- AdminLTE App -->
@@ -194,6 +195,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url('assets/adminlte/js/demo.js');?>"></script>
 <script>
+    
   $(document).ready(function () {
     $('.sidebar-menu').tree()
 
@@ -226,6 +228,8 @@
   <?php }else if($this->session->flashdata('info')){  ?>
     toastr.info("<?php echo $this->session->flashdata('info'); ?>");
   <?php } ?>
+  
+  
 </script>
 </body>
 </html>

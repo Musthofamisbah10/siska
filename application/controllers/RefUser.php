@@ -49,7 +49,8 @@ class RefUser extends CI_Controller {
   }
   
   public function delete($id) {
-    if ($this->db->delete('auth_user', ['id'=>$id])) {
+    $this->db->delete('auth_user', ['id'=>$id]);
+    if ($this->db->affected_rows() > 0) {
       $this->session->set_flashdata('success', $this->lang->line('del_success'));
     } else {
       $this->session->set_flashdata('error', $this->lang->line('del_err'));
