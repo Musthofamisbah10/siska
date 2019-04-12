@@ -26,7 +26,7 @@ class RefGuru extends CI_Controller {
   }
   
   public function index() {
-    $data['content']['refkelas'] = $this->mod_RefKelas->getAllData('1=1')->result();
+    $data['content']['refkelas'] = $this->mod_RefKelas->getData('1=1')->result();
     $data['content']['refguru'] = $this->mod_RefGuru->getData('1=1')->result();
     $data['page'] = 'vRefGuru';
     $data['content']['action'] = 'RefGuru/save';
@@ -53,6 +53,7 @@ class RefGuru extends CI_Controller {
   public function delete($nip) {
     $this->db->delete('ref_guru', ['nip'=>$nip]);
     if ($this->db->affected_rows() > 0) {
+      $this->db->query('ALTER TABLE ref_guru AUTO_INCREMENT = 1');
       $this->session->set_flashdata('success', $this->lang->line('del_success'));
     } else {
       $this->session->set_flashdata('error', $this->lang->line('del_err'));

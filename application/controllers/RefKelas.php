@@ -25,7 +25,7 @@ class RefKelas extends CI_Controller {
   }
   
   public function index() {
-    $data['content']['dtTable'] = $this->mod_RefKelas->getAllData('1=1')->result();
+    $data['content']['dtTable'] = $this->mod_RefKelas->getData('1=1')->result();
     $data['page'] = 'vRefKelas';
     $data['content']['action'] = 'refKelas/save';
     $this->load->view('vMain', $data);
@@ -34,6 +34,7 @@ class RefKelas extends CI_Controller {
   public function save() {
     $this->form_validation->set_rules('idkelas', 'idkelas', 'required');
     $this->form_validation->set_rules('kelas', 'kelas', 'required');
+    $this->form_validation->set_rules('ruang', 'Ruang', 'required');
     $this->form_validation->set_rules('status', 'status', 'required');
     $this->form_validation->set_rules('edit', 'edit', 'required');
     
@@ -51,6 +52,7 @@ class RefKelas extends CI_Controller {
   public function delete($id) {
     $this->db->delete('ref_kelas', ['id'=>$id]);
     if ($this->db->affected_rows() > 0) {
+      $this->db->query('ALTER TABLE ref_kelas AUTO_INCREMENT = 1');
       $this->session->set_flashdata('success', $this->lang->line('del_success'));
     } else {
       $this->session->set_flashdata('error', $this->lang->line('del_err'));
@@ -62,7 +64,7 @@ class RefKelas extends CI_Controller {
     if (!$this->input->is_ajax_request()) {
       exit('No direct script access allowed');
     } else {
-      echo json_encode($this->mod_RefKelas->getAllData(['id'=>$id])->row());
+      echo json_encode($this->mod_RefKelas->getData(['id'=>$id])->row());
     }
   }
 

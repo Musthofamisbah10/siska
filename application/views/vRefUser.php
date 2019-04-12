@@ -1,131 +1,140 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="<?=base_url('admin');?>"><i class="fas fa-tachometer-alt"></i> Home</a></li>
+            <li class="active">User</li>
+        </ol>
+    </section>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-?>
-<!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-    Data User
-    <small></small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li>Setting</li>
-    <li class="active">Ref. User</li>
-  </ol>
-</section>
-
-<!-- Main content -->
-<section class="content">
-
-  <!-- Default box -->
-  <div class="box">
-    <div class="box-header with-border">
-      <h3 class="box-title">Form User</h3>
-    </div>
-    <?=form_open($action,'class="form-horizontal"'); ?>
-    <div class="box-body">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="mapel" class="col-sm-2 control-label">Mapel</label>
-          <div class="col-sm-10">
-            <input type="text" name="mapel" id="mapel" class="form-control input-sm" placeholder="Mata Pelajaran">
-          </div>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Info boxes -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Setting <small> Data Users</small></h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-sm-12 no-padding">
+                            <div class="form-group col-xs-6 col-sm-2">
+                                <?=form_button('tambahuser', '<span class="fa fa-user-plus"></span> Tambah User', 'class="btn btn-info" onclick="return tambahuser();"') ;?>
+                            </div>
+                            <div class="from-group col-xs-6 col-sm-2">
+                                <?=form_button('tambahgroup', '<span class="fa fa-users"></span> Tambah Group', 'class="btn btn-info" onclick="return tambahgroup();"') ;?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div><p/>
+                        <div class="box box-info">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama</th>
+                                            <th>Nama Pengguna</th>
+                                            <th>Email</th>
+                                            <th class="nowrap">Member Of</th>
+                                            <th>Status</th>
+                                            <th>Opsi</th>
+                                        </tr>
+                                        <?php 
+                                        //$no = $this->uri->segment('3') + 1;
+                                        foreach($users as $user){ 
+                                        ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($user->id,ENT_QUOTES,'UTF-8');?></td>
+                                            <td><?php echo htmlspecialchars($user->first_name,ENT_QUOTES,'UTF-8');?></td>
+                                            <td><?php echo htmlspecialchars($user->username,ENT_QUOTES,'UTF-8');?></td>
+                                            <td><?php echo htmlspecialchars($user->email,ENT_QUOTES,'UTF-8');?></td>
+                                            <td>
+                                                <?php foreach ($user->groups as $group):?>
+                                                <div style="padding: 3px 3px 0px 0px;">
+                                                    <?php echo htmlspecialchars($group->name,ENT_QUOTES,'UTF-8');?><br />
+                                                </div>
+                                                <?php endforeach?>
+                                                </td>
+                                                <td><?php echo ($user->active) ? anchor("auth/deactivate/".$user->id, lang('index_active_link'),'title="Deactivate" class="deactivate btn btn-xs btn-info"') : anchor("auth/activate/". $user->id, lang('index_inactive_link'),'title="Activate" class="activate btn btn-xs btn-default"');?></td>
+                                                <td><?php echo anchor("auth/edit_user/".$user->id, '<i class="fa fa-edit "></i> Edit', 'title="Edit User" class="edituser btn btn-xs btn-warning"') ;?></td>
+                                        </tr>                                            
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> <?php //echo $this->pagination->create_links();?>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="status" class="col-sm-2 control-label">Status</label>
-          <div class="col-sm-4">
-            <select name="status" class="form-control input-sm">
-              <option value="0">Tidak Aktif</option>
-              <option value="1" selected>Aktif</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <input type="hidden" name="id" id="id" value="false">
-    <input type="hidden" name="edit" id="edit" value="false">
-    <!-- /.box-body -->
-    <div class="box-footer">
-      <div class="form-group">
-        <div class="text-center">
-          <button type="submit" name="btnsimpan" id="btnsimpan" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Simpan</button>
-          <button type="reset" name="btnreset" id="btnreset" class="btn btn-danger btn-sm"><i class="fa fa-refresh"></i> Reset</button>
-        </div>
-      </div>
-    </div>
-    <!-- /.box-footer-->
-    <?=form_close(); ?>
-  </div>
-  <!-- /.box -->
-  <div class="box">
-    <div class="box-header with-border">
-      <h3 class="box-title">Data User</h3>
-    </div>
-    <div class="box-body">
-      <table id="dtable" class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Mata Pelajaran</th>
-            <th>Status</th>
-            <th>Opsi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          foreach ($refuser as $row) { ?>
-          <tr>
-            <td><?=$row->id;?></td>
-            <td><?=$row->mapel;?></td>
-            <td><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
-            <td>
-              <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->id;?>);"><i class="fa fa-edit"></i> Edit</button>
-              <a href="<?=base_url().'RefMapel/delete/'.$row->id;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
-            </td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-<!-- /.content -->
-
+    </section>
+<div class="modal fade" id="modal-users"></div>
 <script>
-  function editdata(id) {
-    console.log(id);
+function tambahuser(){
     $.ajax({
-      url : "<?php echo base_url('RefMapel/xedit/')?>" + id,
-      type: "GET",
-      dataType: "JSON",
-      success: function(data)
-      {
-        $('#id').val(data.id);
-        $('#mapel').val(data.mapel).focus();
-        $('#status').val(data.status).change();
-        $('#edit').val(true);
-        $('#btnsimpan').html('<i class="fa fa-check-square-o"></i> Update').removeClass('btn-primary').addClass('btn-warning');
-      },
-      error: function (jqXHR, textStatus, errorThrown)
-      {
-        alert("<?=$this->lang->line('getdata_err');?>");
-      }
-    }); 
-  }
-  
-  $('#btnreset').click(function() {
-    $('#kelasid').val('');
-    $('#edit').val(false);
-    $('#id').val(false);
-    $('#btnsimpan').html('<i class="fa fa-save"></i> Simpan').removeClass('btn-warning').addClass('btn-primary');
-  })  
-  
+        url: "<?php echo base_url('RefUser/newuser')?>",
+        type: "GET",
+        datatype: "HTML",
+        success: function(data){
+            $("#modal-users").html(data);
+            $("#modal-users").modal();
+        }
+    });
+};
+function tambahgroup(){
+    $.ajax({
+        url: "<?php echo base_url('auth/create_group')?>",
+        type: "GET",
+        datatype: "HTML",
+        success: function(data){
+            $("#modal-users").html(data);
+            $("#modal-users").modal();
+        }
+    });
+};
+$(document).ready(function() {
+    $(".deactivate").click(function() {
+        url=$(this).attr("href");
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "HTML",
+            success: function(data){
+                $("#modal-users").html(data);
+                $("#modal-users").modal();
+            }
+        });
+        return false;
+    });
+    $(".editgroup").click(function() {
+        url=$(this).attr("href");
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "HTML",
+            success: function(data){
+                $("#modal-users").html(data);
+                $("#modal-users").modal();
+            }
+        });
+        return false;
+    });
+    $(".edituser").click(function() {
+        url=$(this).attr("href");
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "HTML",
+            success: function(data){
+                $("#modal-users").html(data);
+                $("#modal-users").modal();
+           }
+        });
+        return false;
+    });
+});
 </script>

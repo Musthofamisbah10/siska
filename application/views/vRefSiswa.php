@@ -37,21 +37,6 @@
             <input type="text" name="nis" id="nis" class="form-control input-sm" placeholder="NIS">
           </div>
         </div>
-        <div class="form-group">
-          <label for="tgllahir" class="col-sm-3 control-label">Tgl.Lahir</label>
-          <div class="col-sm-8">
-            <input type="date" name="tgllahir" id="tgllahir" class="form-control input-sm">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="status" class="col-sm-3 control-label">Status</label>
-          <div class="col-sm-6">
-            <select name="status" class="form-control input-sm">
-              <option value="0">Tidak Aktif</option>
-              <option value="1" selected>Aktif</option>
-            </select>
-          </div>
-        </div>
       </div>
       <div class="col-sm-7">
         <div class="form-group">
@@ -59,17 +44,38 @@
           <div class="col-sm-10">
             <input type="text" name="nmsiswa" id="nmsiswa" class="form-control input-sm" placeholder="Nama Siswa">
           </div>
-        </div>
+        </div>        
+      </div>
+      <div class="col-sm-5 col-xs-6">
         <div class="form-group">
-          <label for="kelasid" class="col-sm-2 control-label">Kelas</label>
-          <div class="col-sm-6">
+          <label for="tgllahir" class="col-sm-3 control-label">Tgl.Lahir</label>
+          <div class="col-sm-9">
+            <input type="date" name="tgllahir" id="tgllahir" class="form-control input-sm">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-7 col-md-4 col-xs-6">
+        <div class="form-group">
+          <label for="kelasid" class="col-sm-2 col-md-3 control-label">RuKel</label>
+          <div class="col-sm-9">
             <?php
             $option = NULL;
-            $option[''] = 'Pilih Kelas';
+            $option[''] = 'Pilih Ruang';
             foreach($refkelas as $row) {
-              $option[$row->id] = $row->kelas;
+              $option[$row->id] = $row->kelas.' - '.$row->ruang;
             }
             echo form_dropdown('kelasid',$option,'',['id'=>'kelasid','class'=>'form-control input-sm']); ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5 col-md-3 col-xs-6">
+        <div class="form-group">
+          <label for="status" class="col-sm-3 control-label">Status</label>
+          <div class="col-sm-9">
+            <select name="status" id="status" class="form-control input-sm">
+              <option value="0">Tidak Aktif</option>
+              <option value="1" selected>Aktif</option>
+            </select>
           </div>
         </div>
       </div>
@@ -112,7 +118,7 @@
             <td><?=$row->nmsiswa;?></td>
             <td><?=$row->tgllahir;?></td>
             <td><?=$row->kelas;?></td>
-            <td><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
+            <td class="<?=($row->status) ? 'text-success':'text-danger';?>"><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
             <td>
               <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->nis;?>);"><i class="fa fa-edit"></i> Edit</button>
               <a href="<?=base_url().'RefSiswa/delete/'.$row->nis;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>

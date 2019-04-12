@@ -227,6 +227,8 @@
     toastr.warning("<?php echo $this->session->flashdata('warning'); ?>");
   <?php }else if($this->session->flashdata('info')){  ?>
     toastr.info("<?php echo $this->session->flashdata('info'); ?>");
+  <?php }else if($this->session->flashdata('message')){  ?>
+    toastr.info("<?php echo $this->session->flashdata('message'); ?>");
   <?php } ?>
   
   

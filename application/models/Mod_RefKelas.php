@@ -13,12 +13,12 @@ class Mod_RefKelas extends CI_Model {
     
   }
   
-  public function getAllData($where) {
+  public function getData($where) {
     return $this->db->get_where('ref_kelas', $where);
   }
   
   public function saveData($edit) {
-    $arr = ['kelas'=>$this->input->post('kelas'), 'status'=>$this->input->post('status')];
+    $arr = ['kelas'=>$this->input->post('kelas'),'ruang'=> $this->input->post('ruang'), 'status'=>$this->input->post('status')];
     if ($edit === 'true') {
       $this->db->update('ref_kelas',$arr);
     } else {

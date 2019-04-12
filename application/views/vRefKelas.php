@@ -29,21 +29,29 @@
     </div>
     <?=form_open($action,'class="form-horizontal"'); ?>
     <div class="box-body">
-      <div class="col-sm-6">
+      <div class="col-sm-6 col-md-4">
         <div class="form-group">
-          <label for="kelas" class="col-sm-2 control-label">Kelas </label>
-          <div class="col-sm-10">
-            <input type="text" name="kelas" id="kelas" class="form-control input-sm" placeholder="Nama Kelas">
+          <label for="kelas" class="col-sm-2 col-md-3 control-label">Kelas </label>
+          <div class="col-sm-10 col-md-9">
+            <input type="text" name="kelas" id="kelas" class="form-control input-sm" placeholder="Nama Kelas" required>
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-6 col-md-4">
         <div class="form-group">
-          <label for="kelas" class="col-sm-2 control-label">Status </label>
-          <div class="col-sm-6">
-            <select name="status" class="form-control input-sm">
+          <label for="ruang" class="col-sm-2 col-md-3 control-label">Ruang </label>
+          <div class="col-sm-10 col-md-9">
+            <input type="text" name="ruang" id="ruang" class="form-control input-sm" placeholder="Nama Ruang" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form-group">
+          <label for="kelas" class="col-xs-12 col-sm-2 col-md-3 control-label">Status </label>
+          <div class="col-xs-6">
+            <select name="status" id="status" class="form-control input-sm">
               <option value="0">Tidak Aktif</option>
-              <option value="1" selected>Aktif</option>
+              <option value="1" selected="selected">Aktif</option>
             </select>
           </div>
         </div>
@@ -74,6 +82,7 @@
           <tr>
             <th>ID</th>
             <th>Nama Kelas</th>
+            <th>Ruang</th>
             <th>Status</th>
             <th>Opsi</th>
           </tr>
@@ -84,7 +93,8 @@
           <tr>
             <td><?=$row->id;?></td>
             <td><?=$row->kelas;?></td>
-            <td><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
+            <td><?=$row->ruang;?></td>
+            <td class="<?=($row->status) ? 'text-success':'text-danger';?>"><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
             <td>
               <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->id;?>);"><i class="fa fa-edit"></i> Edit</button>
               <a href="<?=base_url().'RefKelas/delete/'.$row->id;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
@@ -108,6 +118,7 @@
       {
         $('#idkelas').val(data.id);
         $('#kelas').val(data.kelas).focus();
+        $('#ruang').val(data.ruang);
         $('#status').val(data.status).change();
         $('#edit').val(true);
         $('#btnsimpan').html('<i class="fa fa-check-square-o"></i> Update').removeClass('btn-primary').addClass('btn-warning');

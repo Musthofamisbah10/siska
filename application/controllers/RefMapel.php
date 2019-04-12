@@ -26,7 +26,7 @@ class RefMapel extends CI_Controller {
   }
   
   public function index() {
-    $data['content']['refkelas'] = $this->mod_RefKelas->getAllData('1=1')->result();
+    $data['content']['refkelas'] = $this->mod_RefKelas->getData('1=1')->result();
     $data['content']['refmapel'] = $this->mod_RefMapel->getData('1=1')->result();
     $data['page'] = 'vRefMapel';
     $data['content']['action'] = 'RefMapel/save';
@@ -53,6 +53,7 @@ class RefMapel extends CI_Controller {
   public function delete($id) {
     $this->db->delete('ref_mapel', ['id'=>$id]);
     if ($this->db->affected_rows() > 0) {
+      $this->db->query('ALTER TABLE ref_mapel AUTO_INCREMENT = 1');
       $this->session->set_flashdata('success', $this->lang->line('del_success'));
     } else {
       $this->session->set_flashdata('error', $this->lang->line('del_err'));

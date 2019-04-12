@@ -42,9 +42,9 @@
           <div class="col-sm-9">
             <?php
             $option = NULL;
-            $option[''] = 'Pilih Kelas';
+            $option[''] = 'Pilih Ruang Kelas';
             foreach($refkelas as $row) {
-              $option[$row->id] = $row->kelas;
+              $option[$row->id] = $row->kelas.' - '.$row->ruang;
             }
             echo form_dropdown('kelasid',$option,'',['id'=>'kelasid','class'=>'form-control input-sm']); ?>
           </div>
