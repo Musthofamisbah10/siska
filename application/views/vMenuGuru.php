@@ -34,9 +34,9 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-chevron-circle-right"></i> <span>Nilai Harian</span></a></li>
-          <li><a href="#"><i class="fa fa-chevron-circle-right"></i> <span>Nilai TTS</span></a></li>
-          <li><a href="#"><i class="fa fa-chevron-circle-right"></i> <span>Nilai TAS</span></a></li>
+          <li><a href="<?=base_url('Nilai/index/1');?>"><i class="fa fa-chevron-circle-right"></i> <span>Nilai Harian</span></a></li>
+          <li><a href="<?=base_url('Nilai/index/2');?>"><i class="fa fa-chevron-circle-right"></i> <span>Nilai TTS</span></a></li>
+          <li><a href="<?=base_url('Nilai/index/3');?>"><i class="fa fa-chevron-circle-right"></i> <span>Nilai TAS</span></a></li>
         </ul>
       </li>
       <li class="treeview">

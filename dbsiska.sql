@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Apr 2019 pada 20.21
+-- Waktu pembuatan: 13 Apr 2019 pada 18.46
 -- Versi server: 10.1.31-MariaDB
 -- Versi PHP: 5.6.35
 
@@ -88,7 +88,7 @@ CREATE TABLE `auth_users` (
 --
 
 INSERT INTO `auth_users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1554827640, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1555172114, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -107,8 +107,7 @@ CREATE TABLE `auth_users_groups` (
 --
 
 INSERT INTO `auth_users_groups` (`id`, `user_id`, `group_id`) VALUES
-(1, 1, 1),
-(2, 1, 2);
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -139,7 +138,8 @@ INSERT INTO `ref_guru` (`nip`, `nmguru`, `kelasid`, `userid`, `status`) VALUES
 
 CREATE TABLE `ref_kelas` (
   `id` smallint(6) NOT NULL,
-  `kelas` varchar(30) NOT NULL,
+  `kelas` varchar(2) NOT NULL,
+  `ruang` varchar(25) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -147,8 +147,8 @@ CREATE TABLE `ref_kelas` (
 -- Dumping data untuk tabel `ref_kelas`
 --
 
-INSERT INTO `ref_kelas` (`id`, `kelas`, `status`) VALUES
-(1, 'I IPA 3', 1);
+INSERT INTO `ref_kelas` (`id`, `kelas`, `ruang`, `status`) VALUES
+(1, '7', 'IPA 2', 1);
 
 -- --------------------------------------------------------
 
@@ -169,7 +169,7 @@ CREATE TABLE `ref_map` (
 --
 
 INSERT INTO `ref_map` (`id`, `nip`, `kelasid`, `mapelid`, `status`) VALUES
-(1, '12345678997', 1, 1, 1);
+(2, '12345678997', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -204,12 +204,71 @@ CREATE TABLE `ref_siswa` (
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `ref_siswa`
+-- Struktur dari tabel `t_nharian`
 --
 
-INSERT INTO `ref_siswa` (`nis`, `nmsiswa`, `tgllahir`, `kelasid`, `status`) VALUES
-('1234', 'pijo', '2019-04-24', 1, 1);
+CREATE TABLE `t_nharian` (
+  `id` int(11) NOT NULL,
+  `nilaiid` int(11) NOT NULL,
+  `nis` int(11) NOT NULL,
+  `nilai` float NOT NULL,
+  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_nilai`
+--
+
+CREATE TABLE `t_nilai` (
+  `id` int(11) NOT NULL,
+  `jenisid` tinyint(4) NOT NULL COMMENT '1=harian, 2tts, 3=tas',
+  `kelasid` smallint(6) NOT NULL,
+  `mapelid` smallint(6) NOT NULL,
+  `tgl` date NOT NULL,
+  `materi` varchar(200) NOT NULL,
+  `avg` float DEFAULT NULL,
+  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `t_nilai`
+--
+
+INSERT INTO `t_nilai` (`id`, `jenisid`, `kelasid`, `mapelid`, `tgl`, `materi`, `avg`, `lastup`) VALUES
+(1, 1, 1, 1, '2019-04-13', 'Biologi', NULL, '2019-04-13 16:46:26');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_ntas`
+--
+
+CREATE TABLE `t_ntas` (
+  `id` int(11) NOT NULL,
+  `nilaiid` int(11) NOT NULL,
+  `nis` int(11) NOT NULL,
+  `nilai` float NOT NULL,
+  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_ntts`
+--
+
+CREATE TABLE `t_ntts` (
+  `id` int(11) NOT NULL,
+  `nilaiid` int(11) NOT NULL,
+  `nis` int(11) NOT NULL,
+  `nilai` float NOT NULL,
+  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -279,7 +338,8 @@ ALTER TABLE `ref_guru`
 -- Indeks untuk tabel `ref_kelas`
 --
 ALTER TABLE `ref_kelas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kelas` (`kelas`,`ruang`);
 
 --
 -- Indeks untuk tabel `ref_map`
@@ -299,6 +359,30 @@ ALTER TABLE `ref_mapel`
 ALTER TABLE `ref_siswa`
   ADD PRIMARY KEY (`nis`),
   ADD KEY `siswa_refkelas` (`kelasid`);
+
+--
+-- Indeks untuk tabel `t_nharian`
+--
+ALTER TABLE `t_nharian`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `t_nilai`
+--
+ALTER TABLE `t_nilai`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `t_ntas`
+--
+ALTER TABLE `t_ntas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `t_ntts`
+--
+ALTER TABLE `t_ntts`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `t_presensi`
@@ -333,7 +417,7 @@ ALTER TABLE `auth_users`
 -- AUTO_INCREMENT untuk tabel `auth_users_groups`
 --
 ALTER TABLE `auth_users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `ref_kelas`
@@ -345,7 +429,7 @@ ALTER TABLE `ref_kelas`
 -- AUTO_INCREMENT untuk tabel `ref_map`
 --
 ALTER TABLE `ref_map`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `ref_mapel`
@@ -354,10 +438,34 @@ ALTER TABLE `ref_mapel`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT untuk tabel `t_nharian`
+--
+ALTER TABLE `t_nharian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_nilai`
+--
+ALTER TABLE `t_nilai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_ntas`
+--
+ALTER TABLE `t_ntas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_ntts`
+--
+ALTER TABLE `t_ntts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `t_presensi`
 --
 ALTER TABLE `t_presensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
