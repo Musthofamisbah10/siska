@@ -52,6 +52,9 @@
 <script src="<?=base_url('assets/vendors/jquery-slimscroll/jquery.slimscroll.min.js');?>"></script>
 <!-- FastClick -->
 <script src="<?=base_url('assets/vendors/fastclick/lib/fastclick.js');?>"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
 </head>
 <body class="hold-transition skin-yellow sidebar-mini">
 <!-- Site wrapper -->

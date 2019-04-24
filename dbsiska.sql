@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Apr 2019 pada 18.46
+-- Waktu pembuatan: 24 Apr 2019 pada 21.40
 -- Versi server: 10.1.31-MariaDB
 -- Versi PHP: 5.6.35
 
@@ -88,7 +88,7 @@ CREATE TABLE `auth_users` (
 --
 
 INSERT INTO `auth_users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1555172114, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1556126840, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -204,27 +204,20 @@ CREATE TABLE `ref_siswa` (
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `t_nharian`
+-- Dumping data untuk tabel `ref_siswa`
 --
 
-CREATE TABLE `t_nharian` (
-  `id` int(11) NOT NULL,
-  `nilaiid` int(11) NOT NULL,
-  `nis` int(11) NOT NULL,
-  `nilai` float NOT NULL,
-  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `ref_siswa` (`nis`, `nmsiswa`, `tgllahir`, `kelasid`, `status`) VALUES
+('1234', 'paijo', '2019-04-24', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_nilai`
+-- Struktur dari tabel `t_mnilai`
 --
 
-CREATE TABLE `t_nilai` (
+CREATE TABLE `t_mnilai` (
   `id` int(11) NOT NULL,
   `jenisid` tinyint(4) NOT NULL COMMENT '1=harian, 2tts, 3=tas',
   `kelasid` smallint(6) NOT NULL,
@@ -236,11 +229,43 @@ CREATE TABLE `t_nilai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data untuk tabel `t_mnilai`
+--
+
+INSERT INTO `t_mnilai` (`id`, `jenisid`, `kelasid`, `mapelid`, `tgl`, `materi`, `avg`, `lastup`) VALUES
+(2, 1, 1, 1, '2019-04-25', 'Biologi', 13, '2019-04-24 17:27:38');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_nilai`
+--
+
+CREATE TABLE `t_nilai` (
+  `id` int(11) NOT NULL,
+  `nilaiid` int(11) NOT NULL,
+  `nis` int(11) NOT NULL,
+  `nilai` float NOT NULL DEFAULT '0',
+  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Dumping data untuk tabel `t_nilai`
 --
 
-INSERT INTO `t_nilai` (`id`, `jenisid`, `kelasid`, `mapelid`, `tgl`, `materi`, `avg`, `lastup`) VALUES
-(1, 1, 1, 1, '2019-04-13', 'Biologi', NULL, '2019-04-13 16:46:26');
+INSERT INTO `t_nilai` (`id`, `nilaiid`, `nis`, `nilai`, `lastup`) VALUES
+(2, 2, 1234, 13, '2019-04-24 19:31:59');
+
+--
+-- Trigger `t_nilai`
+--
+DELIMITER $$
+CREATE TRIGGER `getavg_after_update` AFTER UPDATE ON `t_nilai` FOR EACH ROW BEGIN
+SET @avg = (SELECT AVG(nilai) AS avg FROM t_nilai);
+update t_mnilai set t_mnilai.avg = @avg where t_mnilai.id = new.nilaiid;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -361,16 +386,17 @@ ALTER TABLE `ref_siswa`
   ADD KEY `siswa_refkelas` (`kelasid`);
 
 --
--- Indeks untuk tabel `t_nharian`
+-- Indeks untuk tabel `t_mnilai`
 --
-ALTER TABLE `t_nharian`
+ALTER TABLE `t_mnilai`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `t_nilai`
 --
 ALTER TABLE `t_nilai`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nilaiid` (`nilaiid`,`nis`);
 
 --
 -- Indeks untuk tabel `t_ntas`
@@ -438,16 +464,16 @@ ALTER TABLE `ref_mapel`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `t_nharian`
+-- AUTO_INCREMENT untuk tabel `t_mnilai`
 --
-ALTER TABLE `t_nharian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `t_mnilai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_nilai`
 --
 ALTER TABLE `t_nilai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_ntas`
@@ -489,6 +515,12 @@ ALTER TABLE `ref_guru`
 --
 ALTER TABLE `ref_siswa`
   ADD CONSTRAINT `siswa_refkelas` FOREIGN KEY (`kelasid`) REFERENCES `ref_kelas` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `t_nilai`
+--
+ALTER TABLE `t_nilai`
+  ADD CONSTRAINT `nilai_master` FOREIGN KEY (`nilaiid`) REFERENCES `t_mnilai` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

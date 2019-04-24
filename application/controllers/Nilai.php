@@ -37,7 +37,7 @@ class Nilai extends CI_Controller {
     }
     $this->load->model('mod_RefKelas');
     $this->load->model('mod_RefMapel');
-    $data['content']['nilai'] = $this->mod_Nilai->getData(['jenisid'=>$jenis])->result();
+    $data['content']['nilai'] = $this->mod_Nilai->getmData(['jenisid'=>$jenis])->result();
     $data['content']['refkelas'] = $this->mod_RefKelas->getData('1=1')->result();
     $data['content']['refmapel'] = $this->mod_RefMapel->getData('1=1')->result();
     $data['page'] = 'vNilai';
@@ -58,7 +58,9 @@ class Nilai extends CI_Controller {
     
     if ($this->form_validation->run() === TRUE) {
       $result = $this->mod_Nilai->saveData($this->input->post('edit'));
-      if ($result > 0) {
+      $idnilai = $this->db->insert_id();
+      if ($result > 0 && $idnilai) {
+        $this->mod_Nilai->gennilai($idnilai, $this->input->post('kelas'));
         $this->session->set_flashdata('success', $this->lang->line('save_success'));
       } else {
         $this->session->set_flashdata('error', $this->lang->line('save_err'));
@@ -68,8 +70,9 @@ class Nilai extends CI_Controller {
   }
   
   public function delete($id, $jenis) {
-    $this->db->delete('t_nilai', ['id'=>$id]);
+    $this->db->delete('t_mnilai', ['id'=>$id]);
     if ($this->db->affected_rows() > 0) {
+      $this->db->query('ALTER TABLE t_mnilai AUTO_INCREMENT = 1');
       $this->db->query('ALTER TABLE t_nilai AUTO_INCREMENT = 1');
       $this->session->set_flashdata('success', $this->lang->line('del_success'));
     } else {
@@ -82,7 +85,22 @@ class Nilai extends CI_Controller {
     if (!$this->input->is_ajax_request()) {
       exit('No direct script access allowed');
     } else {
-      echo json_encode($this->mod_Nilai->getData(['t_nilai.id'=>$id])->row());
+      echo json_encode($this->mod_Nilai->getmData(['t_mnilai.id'=>$id])->row());
     }
+  }
+  
+  public function xmodalnilai($id) {
+//    if (!$this->input->is_ajax_request()) {
+//      exit('No direct script access allowed');
+//    }
+    $data['mnilai'] = $this->mod_Nilai->getmData(['t_mnilai.id'=>$id])->row();
+    $data['nnilai'] = $this->mod_Nilai->getndata(['t_nilai.nilaiid'=>$id])->result();;
+    $mdlnilai = $this->load->view('vMdlNilai', $data);
+    return $mdlnilai;
+  }
+  
+  public function xinputnilai() {
+    $result = $this->mod_Nilai->savenilai();
+    echo "<script>console.log('".$result."')";
   }
 }

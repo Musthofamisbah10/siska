@@ -120,7 +120,7 @@
               <td><?=$row->materi;?></td>
               <td><?=$row->avg;?></td>
               <td class="text-nowrap">
-                <button class="btn btn-info btn-xs" onclick=""><i class="fa fa-star-o"> Nilai</i></button>
+                <button class="btn btn-info btn-xs" onclick="inputnilai(<?=$row->id;?>)"><i class="fa fa-star-o"> Nilai</i></button>
                 <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->id;?>);"><i class="fa fa-edit"></i> Edit</button>
                 <a href="<?=base_url().'Nilai/delete/'.$row->id.'/'.$jenis;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
               </td>
@@ -133,6 +133,7 @@
   </div>
 </section>
 <!-- /.content -->
+<div id="mdlnilai"></div>
 
 <script>
   $('.carpil').select2();  
@@ -166,5 +167,26 @@
     $('#btnsimpan').html('<i class="fa fa-save"></i> Simpan').removeClass('btn-warning').addClass('btn-primary');
   })  
   
+  function inputnilai(id) {
+    if (id) {
+      $.ajax({
+        url : "<?php echo base_url('Nilai/xmodalnilai/')?>"+id,
+        type : "GET",
+        datType : "HTML",
+        success : function(data) {
+          $('#mdlnilai').html(data);
+          $('#modal-nilai').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+        },
+        error : function (jqXHR, textStatus, errorThrown) {
+          alert("<?=$this->lang->line('getdata_err');?>");
+        }
+      })
+    } else {
+      alert("<?=$this->lang->line('getdata_err');?>");
+    }
+  }
   
 </script>
