@@ -23,7 +23,7 @@ class Mod_Nilai extends CI_Model {
   public function saveData($edit) {
     $arr = ['jenisid'=>$this->input->post('jenis'),'kelasid'=>$this->input->post('kelas'),'mapelid'=>$this->input->post('mapel'),'tgl'=>$this->input->post('tgl'),'materi'=>$this->input->post('materi')];
     if ($edit === 'true') {
-      $this->db->update('t_mnilai',$arr);
+      $this->db->update('t_mnilai',$arr,['id'=> $this->input->post('id')]);
     } else {
       $this->db->insert('t_mnilai',$arr);
     }

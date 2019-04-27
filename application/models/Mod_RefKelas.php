@@ -20,7 +20,7 @@ class Mod_RefKelas extends CI_Model {
   public function saveData($edit) {
     $arr = ['kelas'=>$this->input->post('kelas'),'ruang'=> $this->input->post('ruang'), 'status'=>$this->input->post('status')];
     if ($edit === 'true') {
-      $this->db->update('ref_kelas',$arr);
+      $this->db->update('ref_kelas',$arr, ['id'=>$this->input->post('idkelas')]);
     } else {
       $this->db->insert('ref_kelas',$arr);
     }

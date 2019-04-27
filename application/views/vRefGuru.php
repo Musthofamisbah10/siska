@@ -103,7 +103,7 @@
           <tr>
             <td><?=$row->nip;?></td>
             <td><?=$row->nmguru;?></td>
-            <td><?=$row->kelas;?></td>
+            <td><?=$row->kelas.' - '.$row->ruang;?></td>
             <td><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
             <td>
               <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->nip;?>);"><i class="fa fa-edit"></i> Edit</button>

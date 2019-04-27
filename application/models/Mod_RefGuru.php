@@ -14,16 +14,16 @@ class Mod_RefGuru extends CI_Model {
   }
   
   public function getData($where) {
-    $this->db->select('ref_guru.*, ref_kelas.kelas');
+    $this->db->select('ref_guru.*, ref_kelas.kelas, ref_kelas.ruang');
     $this->db->join('ref_kelas', 'ref_guru.kelasid=ref_kelas.id','left');
     return $this->db->get_where('ref_guru', $where);
   }
   
   public function saveData($edit) {
     ($this->input->post('kelasid')==='') ? $kelas=NULL:$kelas=$this->input->post('kelasid');
-    $arr = ['nip'=>$this->input->post('nip'),'nmguru'=>$this->input->post('nmguru'),'kelasid'=>$kelas, 'status'=>$this->input->post('status')];
+    $arr = ['nmguru'=>$this->input->post('nmguru'),'kelasid'=>$kelas, 'status'=>$this->input->post('status')];
     if ($edit === 'true') {
-      $this->db->update('ref_guru',$arr);
+      $this->db->update('ref_guru',$arr,['nip'=>$this->input->post('nip')]);
     } else {
       $this->db->insert('ref_guru',$arr);
     }

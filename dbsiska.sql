@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Apr 2019 pada 21.40
+-- Waktu pembuatan: 27 Apr 2019 pada 22.37
 -- Versi server: 10.1.31-MariaDB
 -- Versi PHP: 5.6.35
 
@@ -40,7 +40,8 @@ CREATE TABLE `auth_groups` (
 
 INSERT INTO `auth_groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'members', 'General User');
+(2, 'members', 'General User'),
+(3, 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -88,7 +89,7 @@ CREATE TABLE `auth_users` (
 --
 
 INSERT INTO `auth_users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1556126840, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1556387287, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -123,13 +124,6 @@ CREATE TABLE `ref_guru` (
   `status` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `ref_guru`
---
-
-INSERT INTO `ref_guru` (`nip`, `nmguru`, `kelasid`, `userid`, `status`) VALUES
-('12345678997', 'Budi Irawan, S.Kom', NULL, NULL, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -142,13 +136,6 @@ CREATE TABLE `ref_kelas` (
   `ruang` varchar(25) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ref_kelas`
---
-
-INSERT INTO `ref_kelas` (`id`, `kelas`, `ruang`, `status`) VALUES
-(1, '7', 'IPA 2', 1);
 
 -- --------------------------------------------------------
 
@@ -169,7 +156,8 @@ CREATE TABLE `ref_map` (
 --
 
 INSERT INTO `ref_map` (`id`, `nip`, `kelasid`, `mapelid`, `status`) VALUES
-(2, '12345678997', 2, 1, 1);
+(2, '12345678997', 2, 1, 1),
+(3, '12345678997', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -182,13 +170,6 @@ CREATE TABLE `ref_mapel` (
   `mapel` varchar(50) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ref_mapel`
---
-
-INSERT INTO `ref_mapel` (`id`, `mapel`, `status`) VALUES
-(1, 'IPA', 1);
 
 -- --------------------------------------------------------
 
@@ -203,13 +184,6 @@ CREATE TABLE `ref_siswa` (
   `kelasid` smallint(6) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ref_siswa`
---
-
-INSERT INTO `ref_siswa` (`nis`, `nmsiswa`, `tgllahir`, `kelasid`, `status`) VALUES
-('1234', 'paijo', '2019-04-24', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -228,13 +202,6 @@ CREATE TABLE `t_mnilai` (
   `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `t_mnilai`
---
-
-INSERT INTO `t_mnilai` (`id`, `jenisid`, `kelasid`, `mapelid`, `tgl`, `materi`, `avg`, `lastup`) VALUES
-(2, 1, 1, 1, '2019-04-25', 'Biologi', 13, '2019-04-24 17:27:38');
-
 -- --------------------------------------------------------
 
 --
@@ -248,13 +215,6 @@ CREATE TABLE `t_nilai` (
   `nilai` float NOT NULL DEFAULT '0',
   `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `t_nilai`
---
-
-INSERT INTO `t_nilai` (`id`, `nilaiid`, `nis`, `nilai`, `lastup`) VALUES
-(2, 2, 1234, 13, '2019-04-24 19:31:59');
 
 --
 -- Trigger `t_nilai`
@@ -314,7 +274,7 @@ CREATE TABLE `t_presensi` (
 --
 
 INSERT INTO `t_presensi` (`id`, `tgl`, `nis`, `status`, `ket`) VALUES
-(1, '2019-04-09', 1234, 1, '-');
+(1, '2019-04-09', 1234, 2, '-');
 
 --
 -- Indexes for dumped tables
@@ -425,13 +385,13 @@ ALTER TABLE `t_presensi`
 -- AUTO_INCREMENT untuk tabel `auth_groups`
 --
 ALTER TABLE `auth_groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_login_attempts`
 --
 ALTER TABLE `auth_login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `auth_users`
@@ -449,31 +409,31 @@ ALTER TABLE `auth_users_groups`
 -- AUTO_INCREMENT untuk tabel `ref_kelas`
 --
 ALTER TABLE `ref_kelas`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `ref_map`
 --
 ALTER TABLE `ref_map`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `ref_mapel`
 --
 ALTER TABLE `ref_mapel`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_mnilai`
 --
 ALTER TABLE `t_mnilai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_nilai`
 --
 ALTER TABLE `t_nilai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_ntas`
@@ -491,7 +451,7 @@ ALTER TABLE `t_ntts`
 -- AUTO_INCREMENT untuk tabel `t_presensi`
 --
 ALTER TABLE `t_presensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

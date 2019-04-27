@@ -117,7 +117,7 @@
             <td><?=$row->nis;?></td>
             <td><?=$row->nmsiswa;?></td>
             <td><?=$row->tgllahir;?></td>
-            <td><?=$row->kelas;?></td>
+            <td><?=$row->kelas.' - '.$row->ruang;?></td>
             <td class="<?=($row->status) ? 'text-success':'text-danger';?>"><?=[0=>'Tidak Aktif','Aktif'][$row->status];?></td>
             <td>
               <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->nis;?>);"><i class="fa fa-edit"></i> Edit</button>

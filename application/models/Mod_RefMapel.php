@@ -18,9 +18,9 @@ class Mod_RefMapel extends CI_Model {
   }
   
   public function saveData($edit) {
-    $arr = ['id'=>$this->input->post('id'),'mapel'=>$this->input->post('mapel'),'status'=>$this->input->post('status')];
+    $arr = ['mapel'=>$this->input->post('mapel'),'status'=>$this->input->post('status')];
     if ($edit === 'true') {
-      $this->db->update('ref_mapel',$arr);
+      $this->db->update('ref_mapel',$arr,['id'=>$this->input->post('id')]);
     } else {
       $this->db->insert('ref_mapel',$arr);
     }

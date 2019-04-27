@@ -14,15 +14,15 @@ class Mod_RefSiswa extends CI_Model {
   }
   
   public function getData($where) {
-    $this->db->select('ref_siswa.*, ref_kelas.kelas');
+    $this->db->select('ref_siswa.*, ref_kelas.kelas, ref_kelas.ruang');
     $this->db->join('ref_kelas', 'ref_siswa.kelasid=ref_kelas.id','left');
     return $this->db->get_where('ref_siswa', $where);
   }
   
   public function saveData($edit) {
-    $arr = ['nis'=>$this->input->post('nis'),'nmsiswa'=>$this->input->post('nmsiswa'),'kelasid'=>$this->input->post('kelasid'),'tgllahir'=>$this->input->post('tgllahir'),'status'=>$this->input->post('status')];
+    $arr = ['nmsiswa'=>$this->input->post('nmsiswa'),'kelasid'=>$this->input->post('kelasid'),'tgllahir'=>$this->input->post('tgllahir'),'status'=>$this->input->post('status')];
     if ($edit === 'true') {
-      $this->db->update('ref_siswa',$arr);
+      $this->db->update('ref_siswa',$arr,['nis'=>$this->input->post('nis')]);
     } else {
       $this->db->insert('ref_siswa',$arr);
     }

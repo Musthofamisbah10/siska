@@ -64,9 +64,9 @@ class Presensi extends CI_Controller {
   public function xedit($id) {
     if (!$this->input->is_ajax_request()) {
       exit('No direct script access allowed');
-    } else {
-      echo json_encode($this->mod_Presensi->getData(['id'=>$id])->row());
-    }
+    } 
+      echo json_encode($this->mod_Presensi->getData(['t_presensi.id'=>$id])->row());
+    
   }
 
 }

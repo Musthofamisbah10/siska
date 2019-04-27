@@ -67,6 +67,7 @@
           <li><a href="<?=base_url('RefSiswa');?>"><i class="fa fa-chevron-circle-right"></i> Data Siswa</a></li>
           <li><a href="<?=base_url('RefMap');?>"><i class="fa fa-chevron-circle-right"></i> Guru-Kelas-MaPel</a></li>
           <li><a href="<?=base_url('RefUser');?>"><i class="fa fa-chevron-circle-right"></i> Data User</a></li>
+          <li><a href="<?=base_url();?>"><i class="fa fa-chevron-circle-right"></i> Telegram</a></li>
         </ul>
       </li>
     </ul>

@@ -73,7 +73,7 @@
         <div class="form-group">
           <label for="status" class="col-sm-2 control-label">Status</label>
           <div class="col-sm-4">
-            <select name="status" class="form-control input-sm">
+            <select id="status" name="status" class="form-control input-sm">
               <option value="0">Tidak Aktif</option>
               <option value="1" selected>Aktif</option>
             </select>
@@ -147,7 +147,7 @@
       {
         $('#id').val(data.id);
         $('#nip').val(data.nip).change().focus();
-        $('#mapel').val(data.mapel);
+        $('#mapelid').val(data.mapelid);
         $('#kelasid').val(data.kelasid).change();
         $('#status').val(data.status).change();
         $('#edit').val(true);

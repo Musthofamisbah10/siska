@@ -41,12 +41,11 @@
         <div class="form-group">
           <label for="status" class="col-sm-4 control-label">Status</label>
           <div class="col-sm-8">
-            <select name="status" class="form-control input-sm" required>
-              <option value="">status</option>
-              <option value="1" selected>Alpa</option>
-              <option value="2" selected>Ijin</option>
-              <option value="3" selected>Sakit</option>
-            </select>
+            <?php
+            $options = NULL;
+            $options = [''=>'Status','1'=>'Alpha','2'=>'Ijin','3'=>'Sakit'];
+            echo form_dropdown('status', $options,'', ['id'=>'status','class'=>'form-control input-sm','required'=>'required']);
+            ?>
           </div>
         </div>
       </div>
@@ -114,7 +113,7 @@
             <td><?=[1=>'Alpa','Ijin','Sakit'][$row->status];?></td>
             <td><?=$row->ket;?></td>
             <td>
-              <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->nis;?>);"><i class="fa fa-edit"></i> Edit</button>
+              <button class="btn btn-warning btn-xs" onclick="editdata(<?=$row->id;?>);"><i class="fa fa-edit"></i> Edit</button>
               <a href="<?=base_url().'presensi/delete/'.$row->id;?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin menghapus data ini ?')"><i class="fa fa-trash-o"></i> Hapus</a>
             </td>
           </tr>
@@ -130,17 +129,18 @@
   
   $('.carpil').select2();  
   
-  function editdata(nip) {
+  function editdata(id) {
     $.ajax({
-      url : "<?php echo base_url('RefGuru/xedit/')?>" + nip,
+      url : "<?php echo base_url('Presensi/xedit/')?>"+id,
       type: "GET",
       dataType: "JSON",
       success: function(data)
       {
-        $('#nip').val(data.nip);
-        $('#nmguru').val(data.nmguru);
-        $('#kelasid').val(data.kelasid).change();
+        $('#tgl').val(data.tgl);
+        $('#nis').val(data.nis).change();
         $('#status').val(data.status).change();
+        $('#ket').val(data.ket);
+        $('#id').val(data.id);
         $('#edit').val(true);
         $('#btnsimpan').html('<i class="fa fa-check-square-o"></i> Update').removeClass('btn-primary').addClass('btn-warning');
       },
@@ -152,7 +152,8 @@
   }
   
   $('#btnreset').click(function() {
-    $('#kelasid').val('');
+    $('#nis').val('').change();
+    $('#id').val(false);
     $('#edit').val(false);
     $('#btnsimpan').html('<i class="fa fa-save"></i> Simpan').removeClass('btn-warning').addClass('btn-primary');
   })  

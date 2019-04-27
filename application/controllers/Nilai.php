@@ -58,9 +58,11 @@ class Nilai extends CI_Controller {
     
     if ($this->form_validation->run() === TRUE) {
       $result = $this->mod_Nilai->saveData($this->input->post('edit'));
-      $idnilai = $this->db->insert_id();
-      if ($result > 0 && $idnilai) {
-        $this->mod_Nilai->gennilai($idnilai, $this->input->post('kelas'));
+      if ($result > 0) {
+        if (!$this->input->post('edit')){
+          $idnilai = $this->db->insert_id();
+          $this->mod_Nilai->gennilai($idnilai, $this->input->post('kelas'));
+        }
         $this->session->set_flashdata('success', $this->lang->line('save_success'));
       } else {
         $this->session->set_flashdata('error', $this->lang->line('save_err'));

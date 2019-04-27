@@ -42,7 +42,7 @@
         <div class="form-group">
           <label for="status" class="col-sm-2 control-label">Status</label>
           <div class="col-sm-4">
-            <select name="status" class="form-control input-sm">
+            <select id="status" name="status" class="form-control input-sm">
               <option value="0">Tidak Aktif</option>
               <option value="1" selected>Aktif</option>
             </select>
@@ -122,7 +122,6 @@
   }
   
   $('#btnreset').click(function() {
-    $('#kelasid').val('');
     $('#edit').val(false);
     $('#id').val(false);
     $('#btnsimpan').html('<i class="fa fa-save"></i> Simpan').removeClass('btn-warning').addClass('btn-primary');

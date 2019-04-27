@@ -22,9 +22,9 @@ class Mod_RefMap extends CI_Model {
   }
   
   public function saveData($edit) {
-    $arr = ['id'=>$this->input->post('id'),'nip'=>$this->input->post('nip'),'mapelid'=>$this->input->post('mapelid'),'kelasid'=>$this->input->post('kelasid'), 'status'=>$this->input->post('status')];
+    $arr = ['nip'=>$this->input->post('nip'),'mapelid'=>$this->input->post('mapelid'),'kelasid'=>$this->input->post('kelasid'), 'status'=>$this->input->post('status')];
     if ($edit === 'true') {
-      $this->db->update('ref_map',$arr);
+      $this->db->update('ref_map',$arr,['id'=>$this->input->post('id')]);
     } else {
       $this->db->insert('ref_map',$arr);
     }
