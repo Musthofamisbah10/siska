@@ -21,7 +21,7 @@ class Mod_RefGuru extends CI_Model {
   
   public function saveData($edit) {
     ($this->input->post('kelasid')==='') ? $kelas=NULL:$kelas=$this->input->post('kelasid');
-    $arr = ['nmguru'=>$this->input->post('nmguru'),'kelasid'=>$kelas, 'status'=>$this->input->post('status')];
+    $arr = ['nip'=>$this->input->post('nip'),'nmguru'=>$this->input->post('nmguru'),'kelasid'=>$kelas, 'status'=>$this->input->post('status')];
     if ($edit === 'true') {
       $this->db->update('ref_guru',$arr,['nip'=>$this->input->post('nip')]);
     } else {

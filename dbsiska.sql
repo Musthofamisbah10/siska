@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 27 Apr 2019 pada 22.37
--- Versi server: 10.1.31-MariaDB
--- Versi PHP: 5.6.35
+-- Host: localhost:3306
+-- Generation Time: Apr 29, 2019 at 11:21 PM
+-- Server version: 10.2.23-MariaDB-cll-lve
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbsiska`
+-- Database: `smanmadi_siska`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_groups`
+-- Table structure for table `auth_groups`
 --
 
 CREATE TABLE `auth_groups` (
@@ -35,7 +35,7 @@ CREATE TABLE `auth_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `auth_groups`
+-- Dumping data for table `auth_groups`
 --
 
 INSERT INTO `auth_groups` (`id`, `name`, `description`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `auth_groups` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_login_attempts`
+-- Table structure for table `auth_login_attempts`
 --
 
 CREATE TABLE `auth_login_attempts` (
@@ -59,7 +59,7 @@ CREATE TABLE `auth_login_attempts` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_users`
+-- Table structure for table `auth_users`
 --
 
 CREATE TABLE `auth_users` (
@@ -85,16 +85,16 @@ CREATE TABLE `auth_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `auth_users`
+-- Dumping data for table `auth_users`
 --
 
 INSERT INTO `auth_users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1556387287, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2y$12$sMbx.TRi8yV/4U0oDXI9weuibWSLDyoJJrFpE59RGt0YZSGDbrYcC', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1556554720, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_users_groups`
+-- Table structure for table `auth_users_groups`
 --
 
 CREATE TABLE `auth_users_groups` (
@@ -104,7 +104,7 @@ CREATE TABLE `auth_users_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `auth_users_groups`
+-- Dumping data for table `auth_users_groups`
 --
 
 INSERT INTO `auth_users_groups` (`id`, `user_id`, `group_id`) VALUES
@@ -113,7 +113,7 @@ INSERT INTO `auth_users_groups` (`id`, `user_id`, `group_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ref_guru`
+-- Table structure for table `ref_guru`
 --
 
 CREATE TABLE `ref_guru` (
@@ -121,13 +121,20 @@ CREATE TABLE `ref_guru` (
   `nmguru` varchar(100) NOT NULL,
   `kelasid` smallint(6) DEFAULT NULL,
   `userid` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1'
+  `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ref_guru`
+--
+
+INSERT INTO `ref_guru` (`nip`, `nmguru`, `kelasid`, `userid`, `status`) VALUES
+('', 'SUHARDJO, SP.d', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ref_kelas`
+-- Table structure for table `ref_kelas`
 --
 
 CREATE TABLE `ref_kelas` (
@@ -137,10 +144,26 @@ CREATE TABLE `ref_kelas` (
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `ref_kelas`
+--
+
+INSERT INTO `ref_kelas` (`id`, `kelas`, `ruang`, `status`) VALUES
+(1, 'X ', 'X MIPA 1', 1),
+(2, 'X ', 'X MIPA 2', 1),
+(3, 'X ', 'X MIPA 3', 1),
+(4, 'X ', 'X MIPA 4', 1),
+(5, 'X ', 'X MIPA 5', 1),
+(6, 'X ', 'X MIPA 6', 1),
+(7, 'X ', 'X IPS 1', 1),
+(8, 'X ', 'X IPS 2', 1),
+(9, 'X ', 'X IPS 3', 1),
+(10, 'X ', 'X IPS 4', 1);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ref_map`
+-- Table structure for table `ref_map`
 --
 
 CREATE TABLE `ref_map` (
@@ -152,7 +175,7 @@ CREATE TABLE `ref_map` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `ref_map`
+-- Dumping data for table `ref_map`
 --
 
 INSERT INTO `ref_map` (`id`, `nip`, `kelasid`, `mapelid`, `status`) VALUES
@@ -162,7 +185,7 @@ INSERT INTO `ref_map` (`id`, `nip`, `kelasid`, `mapelid`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ref_mapel`
+-- Table structure for table `ref_mapel`
 --
 
 CREATE TABLE `ref_mapel` (
@@ -171,10 +194,38 @@ CREATE TABLE `ref_mapel` (
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `ref_mapel`
+--
+
+INSERT INTO `ref_mapel` (`id`, `mapel`, `status`) VALUES
+(1, 'PENDIDIKAN AGAMA ISLAM', 1),
+(2, 'PENDIDIKAN AGAMA KRISTEN', 1),
+(3, 'PENDIDIKAN PANCASILA DAN KEWARGANEGARAAN', 1),
+(4, 'BAHASA INDONESIA', 1),
+(5, 'BAHASA INGGRIS', 1),
+(6, 'MATEMATIKA ( UMUM )', 1),
+(7, 'MATEMATIKA ( PEMINATAN )', 1),
+(8, 'SEJARAH INDONESIA', 1),
+(9, 'PENDIDIKAN JASMANI, OLAHRAGA DAN KESEHATAN', 1),
+(10, 'PRAKARYA DAN KEWIRAUSAHAAN', 1),
+(11, 'SENI BUDAYA', 1),
+(12, 'BIOLOGI', 1),
+(13, 'FISIKA', 1),
+(14, 'KIMIA', 1),
+(15, 'GEOGRAFI', 1),
+(16, 'SOSIOLOGI', 1),
+(17, 'EKONOMI', 1),
+(18, 'SEJARAH ( PEMINATAN )', 1),
+(19, 'BIMBINGAN KONSELING ( BK )', 1),
+(20, 'BIMBINGAN KONSELING TIK ( BK TIK )', 1),
+(21, 'BAHASA JAWA', 1),
+(22, 'BAHASA JEPANG', 1);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ref_siswa`
+-- Table structure for table `ref_siswa`
 --
 
 CREATE TABLE `ref_siswa` (
@@ -188,7 +239,7 @@ CREATE TABLE `ref_siswa` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_mnilai`
+-- Table structure for table `t_mnilai`
 --
 
 CREATE TABLE `t_mnilai` (
@@ -199,25 +250,25 @@ CREATE TABLE `t_mnilai` (
   `tgl` date NOT NULL,
   `materi` varchar(200) NOT NULL,
   `avg` float DEFAULT NULL,
-  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `lastup` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_nilai`
+-- Table structure for table `t_nilai`
 --
 
 CREATE TABLE `t_nilai` (
   `id` int(11) NOT NULL,
   `nilaiid` int(11) NOT NULL,
   `nis` int(11) NOT NULL,
-  `nilai` float NOT NULL DEFAULT '0',
-  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `nilai` float NOT NULL DEFAULT 0,
+  `lastup` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Trigger `t_nilai`
+-- Triggers `t_nilai`
 --
 DELIMITER $$
 CREATE TRIGGER `getavg_after_update` AFTER UPDATE ON `t_nilai` FOR EACH ROW BEGIN
@@ -230,7 +281,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_ntas`
+-- Table structure for table `t_ntas`
 --
 
 CREATE TABLE `t_ntas` (
@@ -238,13 +289,13 @@ CREATE TABLE `t_ntas` (
   `nilaiid` int(11) NOT NULL,
   `nis` int(11) NOT NULL,
   `nilai` float NOT NULL,
-  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `lastup` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_ntts`
+-- Table structure for table `t_ntts`
 --
 
 CREATE TABLE `t_ntts` (
@@ -252,13 +303,13 @@ CREATE TABLE `t_ntts` (
   `nilaiid` int(11) NOT NULL,
   `nis` int(11) NOT NULL,
   `nilai` float NOT NULL,
-  `lastup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `lastup` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_presensi`
+-- Table structure for table `t_presensi`
 --
 
 CREATE TABLE `t_presensi` (
@@ -270,7 +321,7 @@ CREATE TABLE `t_presensi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `t_presensi`
+-- Dumping data for table `t_presensi`
 --
 
 INSERT INTO `t_presensi` (`id`, `tgl`, `nis`, `status`, `ket`) VALUES
@@ -281,19 +332,19 @@ INSERT INTO `t_presensi` (`id`, `tgl`, `nis`, `status`, `ket`) VALUES
 --
 
 --
--- Indeks untuk tabel `auth_groups`
+-- Indexes for table `auth_groups`
 --
 ALTER TABLE `auth_groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `auth_login_attempts`
+-- Indexes for table `auth_login_attempts`
 --
 ALTER TABLE `auth_login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `auth_users`
+-- Indexes for table `auth_users`
 --
 ALTER TABLE `auth_users`
   ADD PRIMARY KEY (`id`),
@@ -304,7 +355,7 @@ ALTER TABLE `auth_users`
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- Indeks untuk tabel `auth_users_groups`
+-- Indexes for table `auth_users_groups`
 --
 ALTER TABLE `auth_users_groups`
   ADD PRIMARY KEY (`id`),
@@ -313,171 +364,171 @@ ALTER TABLE `auth_users_groups`
   ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
 
 --
--- Indeks untuk tabel `ref_guru`
+-- Indexes for table `ref_guru`
 --
 ALTER TABLE `ref_guru`
   ADD PRIMARY KEY (`nip`),
   ADD KEY `cons_refkelas` (`kelasid`);
 
 --
--- Indeks untuk tabel `ref_kelas`
+-- Indexes for table `ref_kelas`
 --
 ALTER TABLE `ref_kelas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `kelas` (`kelas`,`ruang`);
 
 --
--- Indeks untuk tabel `ref_map`
+-- Indexes for table `ref_map`
 --
 ALTER TABLE `ref_map`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `ref_mapel`
+-- Indexes for table `ref_mapel`
 --
 ALTER TABLE `ref_mapel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `ref_siswa`
+-- Indexes for table `ref_siswa`
 --
 ALTER TABLE `ref_siswa`
   ADD PRIMARY KEY (`nis`),
   ADD KEY `siswa_refkelas` (`kelasid`);
 
 --
--- Indeks untuk tabel `t_mnilai`
+-- Indexes for table `t_mnilai`
 --
 ALTER TABLE `t_mnilai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `t_nilai`
+-- Indexes for table `t_nilai`
 --
 ALTER TABLE `t_nilai`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nilaiid` (`nilaiid`,`nis`);
 
 --
--- Indeks untuk tabel `t_ntas`
+-- Indexes for table `t_ntas`
 --
 ALTER TABLE `t_ntas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `t_ntts`
+-- Indexes for table `t_ntts`
 --
 ALTER TABLE `t_ntts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `t_presensi`
+-- Indexes for table `t_presensi`
 --
 ALTER TABLE `t_presensi`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tgl` (`tgl`,`nis`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `auth_groups`
+-- AUTO_INCREMENT for table `auth_groups`
 --
 ALTER TABLE `auth_groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `auth_login_attempts`
+-- AUTO_INCREMENT for table `auth_login_attempts`
 --
 ALTER TABLE `auth_login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `auth_users`
+-- AUTO_INCREMENT for table `auth_users`
 --
 ALTER TABLE `auth_users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `auth_users_groups`
+-- AUTO_INCREMENT for table `auth_users_groups`
 --
 ALTER TABLE `auth_users_groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `ref_kelas`
+-- AUTO_INCREMENT for table `ref_kelas`
 --
 ALTER TABLE `ref_kelas`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `ref_map`
+-- AUTO_INCREMENT for table `ref_map`
 --
 ALTER TABLE `ref_map`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `ref_mapel`
+-- AUTO_INCREMENT for table `ref_mapel`
 --
 ALTER TABLE `ref_mapel`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT untuk tabel `t_mnilai`
+-- AUTO_INCREMENT for table `t_mnilai`
 --
 ALTER TABLE `t_mnilai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `t_nilai`
+-- AUTO_INCREMENT for table `t_nilai`
 --
 ALTER TABLE `t_nilai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `t_ntas`
+-- AUTO_INCREMENT for table `t_ntas`
 --
 ALTER TABLE `t_ntas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `t_ntts`
+-- AUTO_INCREMENT for table `t_ntts`
 --
 ALTER TABLE `t_ntts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `t_presensi`
+-- AUTO_INCREMENT for table `t_presensi`
 --
 ALTER TABLE `t_presensi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `auth_users_groups`
+-- Constraints for table `auth_users_groups`
 --
 ALTER TABLE `auth_users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `auth_groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `auth_users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ketidakleluasaan untuk tabel `ref_guru`
+-- Constraints for table `ref_guru`
 --
 ALTER TABLE `ref_guru`
   ADD CONSTRAINT `cons_refkelas` FOREIGN KEY (`kelasid`) REFERENCES `ref_kelas` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `ref_siswa`
+-- Constraints for table `ref_siswa`
 --
 ALTER TABLE `ref_siswa`
   ADD CONSTRAINT `siswa_refkelas` FOREIGN KEY (`kelasid`) REFERENCES `ref_kelas` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `t_nilai`
+-- Constraints for table `t_nilai`
 --
 ALTER TABLE `t_nilai`
   ADD CONSTRAINT `nilai_master` FOREIGN KEY (`nilaiid`) REFERENCES `t_mnilai` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

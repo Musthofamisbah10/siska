@@ -34,7 +34,7 @@
         <div class="form-group">
           <label for="mapel" class="col-sm-2 control-label">Mapel</label>
           <div class="col-sm-10">
-            <input type="text" name="mapel" id="mapel" class="form-control input-sm" placeholder="Mata Pelajaran">
+            <input type="text" name="mapel" id="mapel" class="form-control input-sm" placeholder="Mata Pelajaran" required="required">
           </div>
         </div>
       </div>

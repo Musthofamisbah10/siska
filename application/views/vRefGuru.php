@@ -34,7 +34,7 @@
         <div class="form-group">
           <label for="nip" class="col-sm-2 control-label">NIP</label>
           <div class="col-sm-9">
-            <input type="text" name="nip" id="nip" class="form-control input-sm" placeholder="NIP">
+            <input type="text" name="nip" id="nip" class="form-control input-sm" placeholder="NIP" required>
           </div>
         </div>
         <div class="form-group">
@@ -54,7 +54,7 @@
         <div class="form-group">
           <label for="nmguru" class="col-sm-2 control-label">Nama</label>
           <div class="col-sm-10">
-            <input type="text" name="nmguru" id="nmguru" class="form-control input-sm" placeholder="Nama Guru">
+            <input type="text" name="nmguru" id="nmguru" class="form-control input-sm" placeholder="Nama Guru" required>
           </div>
         </div>
         <div class="form-group">

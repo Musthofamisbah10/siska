@@ -35,7 +35,7 @@
         <div class="form-group">
           <label for="tgl" class="col-sm-4 control-label">Tanggal</label>
           <div class="col-sm-8">
-            <input type="date" name="tgl" id="tgl" class="form-control input-sm" value="<?=date('Y-m-d');?>">
+            <input type="date" name="tgl" id="tgl" class="form-control input-sm" value="<?=date('Y-m-d');?>" required>
           </div>
         </div>
         <div class="form-group">

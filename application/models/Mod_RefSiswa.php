@@ -20,7 +20,7 @@ class Mod_RefSiswa extends CI_Model {
   }
   
   public function saveData($edit) {
-    $arr = ['nmsiswa'=>$this->input->post('nmsiswa'),'kelasid'=>$this->input->post('kelasid'),'tgllahir'=>$this->input->post('tgllahir'),'status'=>$this->input->post('status')];
+    $arr = ['nis'=>$this->input->post('nis'),'nmsiswa'=>$this->input->post('nmsiswa'),'kelasid'=>$this->input->post('kelasid'),'tgllahir'=>$this->input->post('tgllahir'),'status'=>$this->input->post('status')];
     if ($edit === 'true') {
       $this->db->update('ref_siswa',$arr,['nis'=>$this->input->post('nis')]);
     } else {

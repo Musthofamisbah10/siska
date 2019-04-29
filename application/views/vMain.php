@@ -196,7 +196,6 @@
 <!-- AdminLTE App -->
 <script src="<?=base_url('assets/adminlte/js/adminlte.min.js');?>"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?=base_url('assets/adminlte/js/demo.js');?>"></script>
 <script>
     
   $(document).ready(function () {

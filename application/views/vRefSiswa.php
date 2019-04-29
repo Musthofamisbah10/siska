@@ -34,7 +34,7 @@
         <div class="form-group">
           <label for="nis" class="col-sm-3 control-label">NIS</label>
           <div class="col-sm-9">
-            <input type="text" name="nis" id="nis" class="form-control input-sm" placeholder="NIS">
+            <input type="text" name="nis" id="nis" class="form-control input-sm" placeholder="NIS" required>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
           <label for="nmsiswa" class="col-sm-2 control-label">Nama</label>
           <div class="col-sm-10">
-            <input type="text" name="nmsiswa" id="nmsiswa" class="form-control input-sm" placeholder="Nama Siswa">
+            <input type="text" name="nmsiswa" id="nmsiswa" class="form-control input-sm" placeholder="Nama Siswa" required>
           </div>
         </div>        
       </div>
@@ -50,7 +50,7 @@
         <div class="form-group">
           <label for="tgllahir" class="col-sm-3 control-label">Tgl.Lahir</label>
           <div class="col-sm-9">
-            <input type="date" name="tgllahir" id="tgllahir" class="form-control input-sm">
+            <input type="date" name="tgllahir" id="tgllahir" class="form-control input-sm" required>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
             foreach($refkelas as $row) {
               $option[$row->id] = $row->kelas.' - '.$row->ruang;
             }
-            echo form_dropdown('kelasid',$option,'',['id'=>'kelasid','class'=>'form-control input-sm']); ?>
+            echo form_dropdown('kelasid',$option,'',['id'=>'kelasid','class'=>'form-control input-sm','required'=>'required']); ?>
           </div>
         </div>
       </div>

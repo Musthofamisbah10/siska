@@ -20,14 +20,24 @@ class LapPresensi extends CI_Controller {
 		} else {
       $this->load->language('data');
       $this->load->model('mod_Presensi');
+      $this->load->model('mod_RefKelas');
     }
     
   }
   
   public function index() {
+    if ($this->input->post('start') || $this->input->post('end')){
+      $start = $this->input->post('start');
+      $end = $this->input->post('end');
+    } else {
+      $start = $end = date('Y-m-d');
+    }
     $data['content']['presensi'] = $this->mod_Presensi->getData('1=1')->result();
     $data['page'] = 'vLapPresensi';
-    $data['content']['action'] = 'LapPresensi/save';
+    $data['content']['action'] = 'LapPresensi/index';
+    $data['content']['start'] = $start;
+    $data['content']['end'] = $end;
+    $data['content']['refkelas'] = $this->mod_RefKelas->getdata('status=1')->result();
     $this->load->view('vMain', $data);
   }
   

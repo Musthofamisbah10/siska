@@ -47,7 +47,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-chevron-circle-right"></i> <span>Presensi Siswa</span></a></li>
+          <li><a href="<?=base_url('LapPresensi');?>"><i class="fa fa-chevron-circle-right"></i> <span>Presensi Siswa</span></a></li>
           <li><a href="#"><i class="fa fa-chevron-circle-right"></i> <span>Nilai Harian</span></a></li>
           <li><a href="#"><i class="fa fa-chevron-circle-right"></i> <span>Nilai TTS</span></a></li>
           <li><a href="#"><i class="fa fa-chevron-circle-right"></i> <span>Nilai TAS</span></a></li>
